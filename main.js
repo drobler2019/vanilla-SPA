@@ -1,2 +1,6 @@
-const app = document.querySelector("#app");
-app.textContent = "Hola mundo";
+import { ProductsComponent } from "./components/ProductsComponent.js";
+
+(() => {
+  const app = document.querySelector("#app");
+  app.append(new ProductsComponent());
+})();

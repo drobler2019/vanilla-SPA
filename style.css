@@ -5,5 +5,19 @@
 }
 
 :root {
-  color-scheme: light dark;
+  --color-head-table: #ffdf20;
+  --color-border-table: hsl(50deg 20% 50% / 30%);
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+body {
+  block-size: 100vb;
+  align-content: center;
+}
+
+products-component::part(products) {
+  box-sizing: border-box;
+  margin: auto;
 }

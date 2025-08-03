@@ -11,15 +11,16 @@ export class ProductsComponent extends HTMLElement {
     <style>
       .container-table {
         overflow: hidden;
-        border-radius: 1.2rem;
+        border-radius: 5px;
         inline-size: min-content;
-        border: thin solid var(--color-border-table);
+        --border-style: thin solid var(--color-border-table);
+        --color-button: #155DFC;
+        border: var(--border-style);
 
       }
 
       table {
         border-collapse: collapse;
-        border-radius: 10px;
         margin: auto;
         min-inline-size: 1200px;
       }
@@ -33,8 +34,8 @@ export class ProductsComponent extends HTMLElement {
       }
 
       tr {
-        border: thin solid var(--color-border-table);
-        font-size: 1.2rem;
+        border: var(--border-style);
+        font-size: 1rem;
         text-align: center;
         transition: background-color .3s ease-in-out;
       }
@@ -42,6 +43,27 @@ export class ProductsComponent extends HTMLElement {
       tr:hover {
         background-color: hsl(from white 45deg 70% 0% / 20%);
       }
+
+      footer {
+        padding: 10px;
+        display: flex;
+        column-gap: 5px;
+        justify-content: end;
+        border: inherit;
+        & > button {
+          border: none; 
+          background-color: var(--color-button);
+          padding: 7px 10px;
+          border-radius: 3px;
+          color: #EDE9FE;
+          cursor: pointer;
+        }
+
+        & > button:hover {
+          background-color: hwb(from var(--color-button) h w 20%);
+        }
+      }
+       
     </style>
     `;
 
@@ -54,8 +76,27 @@ export class ProductsComponent extends HTMLElement {
     div.setAttribute("part", "products");
     div.className = "container-table";
     div.append(await this.renderTable());
+    div.append(this.renderFooter());
     template.content.append(div);
     return template.content.cloneNode(true);
+  }
+
+  renderFooter() {
+    const { totalPages } = this.response;
+    const footer = document.createElement("footer");
+    footer.className = "paginacion";
+    const previous = document.createElement("button");
+    previous.textContent = "Previous";
+    const next = document.createElement("button");
+    next.textContent = "Next";
+    footer.append(previous, next);
+    const { lastElementChild: last } = footer;
+    for (let p = 0; p < totalPages; p++) {
+      const btn = document.createElement("button");
+      btn.textContent = p + 1;
+      last.before(btn);
+    }
+    return footer;
   }
 
   async renderTable() {
@@ -65,9 +106,8 @@ export class ProductsComponent extends HTMLElement {
       "<thead><tr><th>Id</th><th>Nombre</th><th>Descripción</th><th>Precio</th><th>Cantidad</th></tr></thead>"
     );
     const tbody = document.createElement("tbody");
-    const tfoot = document.createElement("tfoot");
-    const products = await getProducts();
-    products.forEach((product) => {
+    this.response = await getProducts();
+    this.response.content.forEach((product) => {
       const tr = document.createElement("tr");
       tr.insertAdjacentHTML(
         "afterbegin",
@@ -75,8 +115,7 @@ export class ProductsComponent extends HTMLElement {
       );
       tbody.append(tr);
     });
-    tfoot.textContent = "hola";
-    table.append(tbody, tfoot);
+    table.append(tbody);
     return table;
   }
 }

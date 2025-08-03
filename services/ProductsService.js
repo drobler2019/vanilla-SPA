@@ -6,7 +6,10 @@ const option = {
 };
 
 export const getProducts = async () => {
-  return await fetch(url.href, option)
-    .then((response) => response.json())
-    .then((json) => json.content);
+  const response = await fetch(url.href, option).then((response) =>
+    response.json()
+  );
+  const { content, numberOfElements, totalElements, totalPages } = response;
+  console.log({ content, numberOfElements, totalElements, totalPages });
+  return { content, numberOfElements, totalElements, totalPages };
 };

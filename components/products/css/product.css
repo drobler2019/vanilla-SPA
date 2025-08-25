@@ -1,0 +1,64 @@
+.container-table {
+  overflow: hidden;
+  border-radius: 5px;
+  inline-size: min-content;
+  --border-style: thin solid var(--color-border-table);
+  --color-button: #0277bd;
+  border: var(--border-style);
+}
+
+table {
+  border-collapse: collapse;
+  margin: auto;
+  min-inline-size: 1200px;
+}
+
+thead :where(tr) {
+  background-color: var(--color-head-table);
+}
+
+td,
+th {
+  padding: 10px;
+}
+
+tr {
+  border: var(--border-style);
+  font-size: 1rem;
+  text-align: center;
+  transition: background-color 0.3s ease-in-out;
+}
+
+tbody tr:hover {
+  background-color: hsl(from white 45deg 70% 0% / 20%);
+}
+
+footer {
+  padding: 10px;
+  display: flex;
+  column-gap: 5px;
+  justify-content: end;
+  border: var(--border-style);
+  & > button {
+    border: none;
+    background-color: transparent;
+    padding: 7px 10px;
+    border-radius: 3px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    cursor: pointer;
+  }
+
+  & > button:hover {
+    background-color: var(--color-head-table);
+  }
+
+  & > button[disabled] {
+    background-color: hwb(from var(--color-button) h w b / 50%);
+    cursor: not-allowed;
+  }
+}
+
+.button-selected {
+  background-color: var(--color-head-table);
+}

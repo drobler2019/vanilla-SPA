@@ -5,11 +5,13 @@
 }
 
 :root {
-  --color-head-table: #ffdf20;
-  --color-border-table: hsl(50deg 20% 50% / 30%);
+  --color-head-table: #1565c0;
+  --color-border-table: var(--color-head-table);
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
+  color-scheme: light dark;
+  color: white;
 }
 
 body {

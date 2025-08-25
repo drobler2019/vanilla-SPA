@@ -1,4 +1,4 @@
-import { ProductsComponent } from "./components/ProductsComponent.js";
+import { ProductsComponent } from "./components/products/ProductsComponent.js";
 
 (() => {
   const app = document.querySelector("#app");
